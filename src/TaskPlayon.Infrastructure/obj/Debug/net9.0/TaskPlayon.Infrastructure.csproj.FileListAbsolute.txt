@@ -1,0 +1,17 @@
+C:\Users\Rajdip\Desktop\New folder (2)\TaskPlayon\src\TaskPlayon.Infrastructure\obj\Debug\net9.0\TaskPlayon.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\Rajdip\Desktop\New folder (2)\TaskPlayon\src\TaskPlayon.Infrastructure\obj\Debug\net9.0\TaskPlayon.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Rajdip\Desktop\New folder (2)\TaskPlayon\src\TaskPlayon.Infrastructure\obj\Debug\net9.0\TaskPlayon.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\Rajdip\Desktop\New folder (2)\TaskPlayon\src\TaskPlayon.Infrastructure\obj\Debug\net9.0\TaskPlayon.Infrastructure.AssemblyInfo.cs
+C:\Users\Rajdip\Desktop\New folder (2)\TaskPlayon\src\TaskPlayon.Infrastructure\obj\Debug\net9.0\TaskPlayon.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\Rajdip\Desktop\New folder (2)\TaskPlayon\src\TaskPlayon.Infrastructure\bin\Debug\net9.0\TaskPlayon.Infrastructure.deps.json
+C:\Users\Rajdip\Desktop\New folder (2)\TaskPlayon\src\TaskPlayon.Infrastructure\bin\Debug\net9.0\TaskPlayon.Infrastructure.runtimeconfig.json
+C:\Users\Rajdip\Desktop\New folder (2)\TaskPlayon\src\TaskPlayon.Infrastructure\bin\Debug\net9.0\TaskPlayon.Infrastructure.dll
+C:\Users\Rajdip\Desktop\New folder (2)\TaskPlayon\src\TaskPlayon.Infrastructure\bin\Debug\net9.0\TaskPlayon.Infrastructure.pdb
+C:\Users\Rajdip\Desktop\New folder (2)\TaskPlayon\src\TaskPlayon.Infrastructure\bin\Debug\net9.0\TaskPlayon.Core.dll
+C:\Users\Rajdip\Desktop\New folder (2)\TaskPlayon\src\TaskPlayon.Infrastructure\bin\Debug\net9.0\TaskPlayon.Core.pdb
+C:\Users\Rajdip\Desktop\New folder (2)\TaskPlayon\src\TaskPlayon.Infrastructure\obj\Debug\net9.0\TaskPlay.4955FE25.Up2Date
+C:\Users\Rajdip\Desktop\New folder (2)\TaskPlayon\src\TaskPlayon.Infrastructure\obj\Debug\net9.0\TaskPlayon.Infrastructure.dll
+C:\Users\Rajdip\Desktop\New folder (2)\TaskPlayon\src\TaskPlayon.Infrastructure\obj\Debug\net9.0\refint\TaskPlayon.Infrastructure.dll
+C:\Users\Rajdip\Desktop\New folder (2)\TaskPlayon\src\TaskPlayon.Infrastructure\obj\Debug\net9.0\TaskPlayon.Infrastructure.pdb
+C:\Users\Rajdip\Desktop\New folder (2)\TaskPlayon\src\TaskPlayon.Infrastructure\obj\Debug\net9.0\TaskPlayon.Infrastructure.genruntimeconfig.cache
+C:\Users\Rajdip\Desktop\New folder (2)\TaskPlayon\src\TaskPlayon.Infrastructure\obj\Debug\net9.0\ref\TaskPlayon.Infrastructure.dll
