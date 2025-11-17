@@ -22,6 +22,7 @@
                 <td>
                     <a asp-action="Edit" asp-controller="Invoice" asp-route-id="@inv.Id" class="btn btn-sm btn-primary">Edit</a>
                     <a asp-action="Details" asp-controller="Invoice" asp-route-id="@inv.Id" class="btn btn-sm btn-info">View</a>
+                    <a asp-action="invoice-pdf" asp-controller="invoice" asp-route-id="@inv.Id" class="btn btn-sm btn-info">Print</a>
                 </td>
             </tr>
         }

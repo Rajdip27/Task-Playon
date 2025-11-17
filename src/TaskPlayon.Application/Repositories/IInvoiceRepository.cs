@@ -113,6 +113,7 @@ namespace TaskPlayon.Application.Repositories
             Items = i.InvoiceItem.Select(ii => new InvoiceItemVm
             {
                 ProductId = ii.ProductId,
+                ProductName = ii.Product.Name,
                 Quantity = ii.Quantity,
                 UnitPrice = ii.UnitPrice
             }).ToList()

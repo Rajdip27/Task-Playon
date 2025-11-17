@@ -1,0 +1,130 @@
+﻿@model TaskPlayon.Application.ViewModel.InvoiceCreateVm
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        color: #333;
+    }
+
+    .invoice-box {
+        max-width: 900px;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #eee;
+        box-shadow: 0 0 10px #ccc;
+        line-height: 1.6;
+        font-size: 16px;
+    }
+
+    .header {
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+        .header h2 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+    .company-info, .customer-info {
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .info-title {
+        font-weight: bold;
+        margin-bottom: 6px;
+        color: #555;
+        font-size: 18px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        table th {
+            background: #f5f5f5;
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        table td {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+    .text-right {
+        text-align: right;
+    }
+
+    .total-section {
+        margin-top: 20px;
+        text-align: right;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .footer {
+        margin-top: 30px;
+        text-align: center;
+        font-size: 14px;
+        color: #777;
+    }
+</style>
+
+<div class="invoice-box">
+
+    <!-- Header -->
+    <div class="header">
+        <h2>INVOICE</h2>
+        <p>Invoice #@Model.Id</p>
+        <p>Date: @Model.Date.ToString("dd-MMM-yyyy")</p>
+    </div>
+
+    <!-- CUSTOMER INFO -->
+    <div class="customer-info">
+        <div class="info-title">Customer Information</div>
+
+        <p><strong>Name:</strong> @Model.CustomerName</p>
+        <p><strong>Email:</strong> @Model.CustomerEmail</p>
+        <p><strong>Phone:</strong> @Model.CustomerPhone</p>
+        <p><strong>Address:</strong> @Model.CustomerAddress</p>
+    </div>
+
+    <!-- ITEMS -->
+    <table>
+        <thead>
+            <tr>
+                <th style="width:40%;">Product</th>
+                <th style="width:20%;">Quantity</th>
+                <th style="width:20%;">Unit Price</th>
+                <th style="width:20%;" class="text-right">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td>@item.ProductName</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.UnitPrice.ToString("0.00")</td>
+                    <td class="text-right">@((item.Quantity * item.UnitPrice).ToString("0.00"))</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <!-- GRAND TOTAL -->
+    <div class="total-section">
+        Grand Total: @Model.TotalAmount.ToString("0.00")
+    </div>
+
+    <div class="footer">
+        Thank you for your business.
+    </div>
+</div>

@@ -19,6 +19,8 @@
 		<PackageReference Include="Microsoft.Extensions.Options" Version="9.0.5" />
 		<PackageReference Include="Microsoft.IdentityModel.Tokens" Version="8.10.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="PuppeteerSharp" Version="20.2.4" />
+		<PackageReference Include="RazorLight" Version="2.3.1" />
 		<PackageReference Include="Scrutor" Version="6.0.1" />
 		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.10.0" />
 		<PackageReference Include="System.Text.Json" Version="9.0.5" />

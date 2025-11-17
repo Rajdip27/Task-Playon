@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TaskPlayon.Application.Enums;
 using TaskPlayon.Application.Repositories;
+using TaskPlayon.Application.Services;
 using TaskPlayon.Application.ViewModel;
 using TaskPlayon.Core.Model;
 
 namespace TaskPlayon.Web.Controllers;
 
-public class InvoiceController(IProductRepository productRepo,IInvoiceRepository invoiceRepository) : Controller
+public class InvoiceController(IProductRepository productRepo,IInvoiceRepository invoiceRepository, IPdfService pdfService) : Controller
 {
 
     [HttpGet]
@@ -94,6 +96,15 @@ public class InvoiceController(IProductRepository productRepo,IInvoiceRepository
             TempData["Error"] = "Failed to update invoice.";
 
         return RedirectToAction("Index");
+    }
+
+
+    [HttpGet("/invoice/invoice-pdf/{id}")]
+    public async Task<IActionResult> Invoice(long id)
+    {
+        var vm = await invoiceRepository.GetInvoiceByIdAsync(id);
+        byte[] pdf = await pdfService.GeneratePdfAsync("InvoicePrint", vm, "A4", PaperOrientation.Landscape);
+        return File(pdf, "application/pdf", "invoice.pdf");
     }
 
 
