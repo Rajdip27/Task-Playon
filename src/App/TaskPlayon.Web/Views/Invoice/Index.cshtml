@@ -1,0 +1,29 @@
+﻿@model List<TaskPlayon.Application.ViewModel.InvoiceVm>
+
+<h2>Invoices</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Customer</th>
+            <th>Date</th>
+            <th>Total</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var inv in Model)
+        {
+            <tr>
+                <td>@inv.Id</td>
+                <td>@inv.CustomerName</td>
+                <td>@inv.Date.ToString("dd-MMM-yyyy")</td>
+                <td>@inv.Total.ToString("0.00")</td>
+                <td>
+                    <a asp-action="Edit" asp-controller="Invoice" asp-route-id="@inv.Id" class="btn btn-sm btn-primary">Edit</a>
+                    <a asp-action="Details" asp-controller="Invoice" asp-route-id="@inv.Id" class="btn btn-sm btn-info">View</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

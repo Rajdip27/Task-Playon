@@ -42,13 +42,9 @@ public class AuditEntry
             TableName = TableName,
             DateTime = DateTime.UtcNow,
             PrimaryKey = JsonConvert.SerializeObject(KeyValues),
-            OldValues = OldValues.Count == 0
-    ? "[]"
-    : JsonConvert.SerializeObject(OldValues),
-            NewValues = NewValues.Count == 0 ? null : JsonConvert.SerializeObject(NewValues),
-            AffectedColumns = ChangedColumns.Count == 0
-    ? "[]"
-    : JsonConvert.SerializeObject(ChangedColumns)
+            OldValues = OldValues.Count == 0 ? "[]" : JsonConvert.SerializeObject(OldValues),
+            NewValues = NewValues.Count == 0 ? "[]" : JsonConvert.SerializeObject(NewValues), // <-- fixed
+            AffectedColumns = ChangedColumns.Count == 0 ? "[]" : JsonConvert.SerializeObject(ChangedColumns)
 
         };
         switch (AuditType)

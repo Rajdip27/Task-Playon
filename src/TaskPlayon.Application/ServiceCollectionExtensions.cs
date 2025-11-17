@@ -14,6 +14,7 @@ using TaskPlayon.Application.Common;
 using TaskPlayon.Application.FileServices;
 using TaskPlayon.Application.Logging;
 using TaskPlayon.Application.MapperConfiguration;
+using TaskPlayon.Application.Repositories;
 using TaskPlayon.Application.Repositories.Base;
 using TaskPlayon.Domain.Model.Auth;
 
@@ -47,6 +48,7 @@ public static class ServiceCollectionExtensions
         });
         services.AddTransient<IAuthService, AuthService>();
         services.AddTransient<IFileService, FileService>();
+        services.AddTransient<IInvoiceRepository, InvoiceRepository>();
         
         services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
