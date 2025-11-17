@@ -3,25 +3,29 @@ using TaskPlayon.Application.Enums;
 using TaskPlayon.Application.Repositories;
 using TaskPlayon.Application.Services;
 using TaskPlayon.Application.ViewModel;
-using TaskPlayon.Core.Model;
 
 namespace TaskPlayon.Web.Controllers;
 
-public class InvoiceController(IProductRepository productRepo,IInvoiceRepository invoiceRepository, IPdfService pdfService) : Controller
+public class InvoiceController(
+    IProductRepository productRepo,
+    IInvoiceRepository invoiceRepository,
+    IPdfService pdfService) : Controller
 {
+    private readonly IProductRepository _productRepo = productRepo;
+    private readonly IInvoiceRepository _invoiceRepository = invoiceRepository;
+    private readonly IPdfService _pdfService = pdfService;
 
     [HttpGet]
     public async Task<IActionResult> Index()
     {
-        var invoices = await invoiceRepository.GetAllInvoicesAsync();
+        var invoices = await _invoiceRepository.GetAllInvoicesAsync();
         return View(invoices);
     }
 
     [HttpGet("/invoice/create")]
     public async Task<IActionResult> Create()
     {
-        var data= await productRepo.GetAllAsync();
-        ViewBag.Products = data;  // for dropdown
+        ViewBag.Products = await _productRepo.GetAllAsync();
         return View(new InvoiceCreateVm());
     }
 
@@ -30,52 +34,63 @@ public class InvoiceController(IProductRepository productRepo,IInvoiceRepository
     {
         if (!ModelState.IsValid)
         {
-            ViewBag.Products = await productRepo.GetAllAsync(); // reload products
+            ViewBag.Products = await _productRepo.GetAllAsync();
+            TempData["AlertMessage"] = "Please fix the validation errors.";
+            TempData["AlertType"] = "Warning";
             return View(vm);
         }
 
         try
         {
-            bool result = await invoiceRepository.CreateInvoiceWithCustomerAsync(vm);
+            bool result = await _invoiceRepository.CreateInvoiceWithCustomerAsync(vm);
 
             if (result)
             {
-                TempData["Success"] = "Invoice created successfully!";
+                TempData["AlertMessage"] = "Invoice created successfully!";
+                TempData["AlertType"] = "Success";
             }
             else
             {
-                TempData["Error"] = "Failed to save invoice. Please try again.";
+                TempData["AlertMessage"] = "Failed to save invoice. Please try again.";
+                TempData["AlertType"] = "Error";
             }
         }
         catch (Exception ex)
         {
-            // Optionally log the error: ex.Message
-            TempData["Error"] = "An error occurred: " + ex.Message;
+            TempData["AlertMessage"] = "An error occurred: " + ex.Message;
+            TempData["AlertType"] = "Error";
         }
 
         return RedirectToAction("Index");
     }
 
-
     [HttpGet("/invoice/details/{id}")]
     public async Task<IActionResult> Details(long id)
     {
-        var vm = await invoiceRepository.GetInvoiceByIdAsync(id);
-        if (vm == null) return NotFound();
+        var vm = await _invoiceRepository.GetInvoiceByIdAsync(id);
+        if (vm == null)
+        {
+            TempData["AlertMessage"] = $"Invoice with Id {id} not found.";
+            TempData["AlertType"] = "Error";
+            return RedirectToAction("Index");
+        }
 
         return View(vm);
     }
 
-
     [HttpGet("/invoice/edit/{id}")]
     public async Task<IActionResult> Edit(long id)
     {
-        var vm = await invoiceRepository.GetInvoiceByIdAsync(id);
+        var vm = await _invoiceRepository.GetInvoiceByIdAsync(id);
 
-        if (vm == null) return NotFound();
+        if (vm == null)
+        {
+            TempData["AlertMessage"] = $"Invoice with Id {id} not found.";
+            TempData["AlertType"] = "Error";
+            return RedirectToAction("Index");
+        }
 
-        ViewBag.Products = await productRepo.GetAllAsync();
-
+        ViewBag.Products = await _productRepo.GetAllAsync();
         return View("Create", vm); // reuse Create.cshtml
     }
 
@@ -84,39 +99,47 @@ public class InvoiceController(IProductRepository productRepo,IInvoiceRepository
     {
         if (!ModelState.IsValid)
         {
-            ViewBag.Products = await productRepo.GetAllAsync();
-            return View("InvoiceForm", vm);
+            ViewBag.Products = await _productRepo.GetAllAsync();
+            TempData["AlertMessage"] = "Please fix the validation errors.";
+            TempData["AlertType"] = "Warning";
+            return View("Create", vm);
         }
 
-        bool success = await invoiceRepository.UpdateInvoiceAsync(id, vm);
+        bool success = await _invoiceRepository.UpdateInvoiceAsync(id, vm);
 
         if (success)
-            TempData["Success"] = "Invoice updated successfully!";
+        {
+            TempData["AlertMessage"] = "Invoice updated successfully!";
+            TempData["AlertType"] = "Success";
+        }
         else
-            TempData["Error"] = "Failed to update invoice.";
+        {
+            TempData["AlertMessage"] = "Failed to update invoice.";
+            TempData["AlertType"] = "Error";
+        }
 
         return RedirectToAction("Index");
     }
 
-
     [HttpGet("/invoice/invoice-pdf/{id}")]
     public async Task<IActionResult> Invoice(long id)
     {
-        var vm = await invoiceRepository.GetInvoiceByIdAsync(id);
-        byte[] pdf = await pdfService.GeneratePdfAsync("InvoicePrint", vm, "A4", PaperOrientation.Landscape);
+        var vm = await _invoiceRepository.GetInvoiceByIdAsync(id);
+        if (vm == null)
+        {
+            TempData["AlertMessage"] = $"Invoice with Id {id} not found.";
+            TempData["AlertType"] = "Error";
+            return RedirectToAction("Index");
+        }
+
+        byte[] pdf = await _pdfService.GeneratePdfAsync("InvoicePrint", vm, "A4", PaperOrientation.Landscape);
         return File(pdf, "application/pdf", "invoice.pdf");
     }
 
-    // New AJAX endpoint - returns download URL
     [HttpGet("/invoice/get-download-url")]
     public IActionResult GetDownloadUrl(long id)
     {
         string url = Url.Action("Invoice", "Invoice", new { id }, Request.Scheme);
         return Json(new { url });
     }
-
-
 }
-
-
-
