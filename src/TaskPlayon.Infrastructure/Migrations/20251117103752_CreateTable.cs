@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TaskPlayon.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class CreateDatbase : Migration
+    public partial class CreateTable : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -318,10 +318,22 @@ namespace TaskPlayon.Infrastructure.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "CreatedBy", "CreatedDate", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UpdatedBy", "UpdatedDate", "UserName" },
                 values: new object[,]
                 {
-                    { 1L, 0, "283e915b-2fb2-4ff1-9b14-1175261980cd", 0L, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "admin@localhost.com", true, false, null, "ADMIN@LOCALHOST.COM", "ADMIN@LOCALHOST.COM", "AQAAAAIAAYagAAAAEMaAIHICFWyrASELe11IfTFlOI362ovYKtc8l71/vfyw5CvUbglp8gJvM5vI5tFgrA==", null, false, "2ed370c4-e13c-49bb-a9c5-7357abe7d4b9", false, null, null, "admin@localhost.com" },
-                    { 2L, 0, "87536851-5c6c-49a7-9937-f05c2a81d674", 0L, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "employee@localhost.com", true, false, null, "EMPLOYEE@LOCALHOST.COM", "EMPLOYEE@LOCALHOST.COM", "AQAAAAIAAYagAAAAEE3/ZTnJMau3L9AfbIBEKiaosXNb3e+HFfHBuJvO/taE+QXKZzKk0Bqlgy6tU52ojQ==", null, false, "39c111d2-ac24-4053-916a-43538d0c1d8b", false, null, null, "employee@localhost.com" },
-                    { 3L, 0, "fe3187d2-14d0-4e7a-9a7b-ff33ec9441bb", 0L, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "trainer@localhost.com", true, false, null, "TRAINER@LOCALHOST.COM", "TRAINER@LOCALHOST.COM", "AQAAAAIAAYagAAAAEHmqorbB/wLA43a7t8/hGbnX4DSWOMyAbtZ5YRTfVmU4QOd+XkmxbCeFlYHm9RDRyQ==", null, false, "17b7680b-db3c-4bd0-bd31-20613ecf47ab", false, null, null, "trainer@localhost.com" },
-                    { 4L, 0, "0ea08b25-2c08-4f1c-8bf6-39a356b0b1f7", 0L, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "student@localhost.com", true, false, null, "STUDENT@LOCALHOST.COM", "STUDENT@LOCALHOST.COM", "AQAAAAIAAYagAAAAEISydfbI5PeBFEmF3A83NaYSWf5Rmgv8rcoawKchYHkjGweEhQqgrvRM1ebyT3NqYg==", null, false, "95e93226-764c-4b35-901f-b7d9392c17b0", false, null, null, "student@localhost.com" }
+                    { 1L, 0, "98e6cfe0-a707-4df4-afb2-5cdd9291c134", 0L, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "admin@localhost.com", true, false, null, "ADMIN@LOCALHOST.COM", "ADMIN@LOCALHOST.COM", "AQAAAAIAAYagAAAAEGsHe8J4lW/Pp0Pvoe3GB8XgKRnC6PPwC8OGJPHdZY4zio228od7A4KsJ1fphiz3SA==", null, false, "d8be4c10-7a02-4341-84e9-f25684fbdd76", false, null, null, "admin@localhost.com" },
+                    { 2L, 0, "b7db7b76-bc0e-4d10-983c-1703216e811f", 0L, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "employee@localhost.com", true, false, null, "EMPLOYEE@LOCALHOST.COM", "EMPLOYEE@LOCALHOST.COM", "AQAAAAIAAYagAAAAECUPlGD9KuPmJ4wpJ7k9BupjbOqQd8vMcfJNVQKug5Y2l1MJE/HsW8lE/uguqp0hgg==", null, false, "fba1f94b-a986-40dd-8ef7-1272cb1b0854", false, null, null, "employee@localhost.com" },
+                    { 3L, 0, "c0f00869-41a1-4cbd-a470-22c3ed0edb9d", 0L, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "trainer@localhost.com", true, false, null, "TRAINER@LOCALHOST.COM", "TRAINER@LOCALHOST.COM", "AQAAAAIAAYagAAAAEK1yfNN9f75PSuLIQRULCXq8f+yOBOySO/QXmh/xAd41iwZEPL8+M+9k490fVplrmA==", null, false, "06210fe9-c083-496e-8104-cb5536eeed2a", false, null, null, "trainer@localhost.com" },
+                    { 4L, 0, "4c3a4d39-ec0f-422c-bf38-645612f9a380", 0L, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "student@localhost.com", true, false, null, "STUDENT@LOCALHOST.COM", "STUDENT@LOCALHOST.COM", "AQAAAAIAAYagAAAAEIFK9pxKWQ+xBJb6IZsxT8Nw6p79MNRIdNCPSonTLRp0HyqRgmU5hlsjswhuOIcWOA==", null, false, "6ebf9eb4-dc3d-4ad8-b50d-f4de3904d5e6", false, null, null, "student@localhost.com" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Product",
+                columns: new[] { "Id", "CreatedBy", "CreatedDate", "IsDelete", "ModifiedBy", "ModifiedDate", "Name", "Price", "Stock" },
+                values: new object[,]
+                {
+                    { -5L, 1L, new DateTimeOffset(new DateTime(2025, 11, 17, 16, 37, 51, 340, DateTimeKind.Unspecified).AddTicks(7019), new TimeSpan(0, 6, 0, 0, 0)), false, null, null, "Mouse", 40.00m, 40 },
+                    { -4L, 1L, new DateTimeOffset(new DateTime(2025, 11, 17, 16, 37, 51, 340, DateTimeKind.Unspecified).AddTicks(7017), new TimeSpan(0, 6, 0, 0, 0)), false, null, null, "Keyboard", 60.00m, 30 },
+                    { -3L, 1L, new DateTimeOffset(new DateTime(2025, 11, 17, 16, 37, 51, 340, DateTimeKind.Unspecified).AddTicks(7013), new TimeSpan(0, 6, 0, 0, 0)), false, null, null, "Headphones", 150.00m, 50 },
+                    { -2L, 1L, new DateTimeOffset(new DateTime(2025, 11, 17, 16, 37, 51, 340, DateTimeKind.Unspecified).AddTicks(6984), new TimeSpan(0, 6, 0, 0, 0)), false, null, null, "Smartphone", 800.00m, 20 },
+                    { -1L, 1L, new DateTimeOffset(new DateTime(2025, 11, 17, 16, 37, 51, 338, DateTimeKind.Unspecified).AddTicks(2543), new TimeSpan(0, 6, 0, 0, 0)), false, null, null, "Laptop", 1200.00m, 10 }
                 });
 
             migrationBuilder.InsertData(

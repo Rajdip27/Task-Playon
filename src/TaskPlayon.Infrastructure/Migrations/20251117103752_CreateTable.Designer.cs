@@ -12,8 +12,8 @@ using TaskPlayon.Infrastructure.DatabaseContext;
 namespace TaskPlayon.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251116172121_CreateDatbase")]
-    partial class CreateDatbase
+    [Migration("20251117103752_CreateTable")]
+    partial class CreateTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -197,6 +197,58 @@ namespace TaskPlayon.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Product", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = -1L,
+                            CreatedBy = 1L,
+                            CreatedDate = new DateTimeOffset(new DateTime(2025, 11, 17, 16, 37, 51, 338, DateTimeKind.Unspecified).AddTicks(2543), new TimeSpan(0, 6, 0, 0, 0)),
+                            IsDelete = false,
+                            Name = "Laptop",
+                            Price = 1200.00m,
+                            Stock = 10
+                        },
+                        new
+                        {
+                            Id = -2L,
+                            CreatedBy = 1L,
+                            CreatedDate = new DateTimeOffset(new DateTime(2025, 11, 17, 16, 37, 51, 340, DateTimeKind.Unspecified).AddTicks(6984), new TimeSpan(0, 6, 0, 0, 0)),
+                            IsDelete = false,
+                            Name = "Smartphone",
+                            Price = 800.00m,
+                            Stock = 20
+                        },
+                        new
+                        {
+                            Id = -3L,
+                            CreatedBy = 1L,
+                            CreatedDate = new DateTimeOffset(new DateTime(2025, 11, 17, 16, 37, 51, 340, DateTimeKind.Unspecified).AddTicks(7013), new TimeSpan(0, 6, 0, 0, 0)),
+                            IsDelete = false,
+                            Name = "Headphones",
+                            Price = 150.00m,
+                            Stock = 50
+                        },
+                        new
+                        {
+                            Id = -4L,
+                            CreatedBy = 1L,
+                            CreatedDate = new DateTimeOffset(new DateTime(2025, 11, 17, 16, 37, 51, 340, DateTimeKind.Unspecified).AddTicks(7017), new TimeSpan(0, 6, 0, 0, 0)),
+                            IsDelete = false,
+                            Name = "Keyboard",
+                            Price = 60.00m,
+                            Stock = 30
+                        },
+                        new
+                        {
+                            Id = -5L,
+                            CreatedBy = 1L,
+                            CreatedDate = new DateTimeOffset(new DateTime(2025, 11, 17, 16, 37, 51, 340, DateTimeKind.Unspecified).AddTicks(7019), new TimeSpan(0, 6, 0, 0, 0)),
+                            IsDelete = false,
+                            Name = "Mouse",
+                            Price = 40.00m,
+                            Stock = 40
+                        });
                 });
 
             modelBuilder.Entity("TaskPlayon.Domain.Model.EntityLogs.AuditLog", b =>
@@ -458,7 +510,7 @@ namespace TaskPlayon.Infrastructure.Migrations
                         {
                             Id = 1L,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "283e915b-2fb2-4ff1-9b14-1175261980cd",
+                            ConcurrencyStamp = "98e6cfe0-a707-4df4-afb2-5cdd9291c134",
                             CreatedBy = 0L,
                             CreatedDate = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Email = "admin@localhost.com",
@@ -466,9 +518,9 @@ namespace TaskPlayon.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "ADMIN@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEMaAIHICFWyrASELe11IfTFlOI362ovYKtc8l71/vfyw5CvUbglp8gJvM5vI5tFgrA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEGsHe8J4lW/Pp0Pvoe3GB8XgKRnC6PPwC8OGJPHdZY4zio228od7A4KsJ1fphiz3SA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2ed370c4-e13c-49bb-a9c5-7357abe7d4b9",
+                            SecurityStamp = "d8be4c10-7a02-4341-84e9-f25684fbdd76",
                             TwoFactorEnabled = false,
                             UserName = "admin@localhost.com"
                         },
@@ -476,7 +528,7 @@ namespace TaskPlayon.Infrastructure.Migrations
                         {
                             Id = 2L,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "87536851-5c6c-49a7-9937-f05c2a81d674",
+                            ConcurrencyStamp = "b7db7b76-bc0e-4d10-983c-1703216e811f",
                             CreatedBy = 0L,
                             CreatedDate = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Email = "employee@localhost.com",
@@ -484,9 +536,9 @@ namespace TaskPlayon.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "EMPLOYEE@LOCALHOST.COM",
                             NormalizedUserName = "EMPLOYEE@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEE3/ZTnJMau3L9AfbIBEKiaosXNb3e+HFfHBuJvO/taE+QXKZzKk0Bqlgy6tU52ojQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAECUPlGD9KuPmJ4wpJ7k9BupjbOqQd8vMcfJNVQKug5Y2l1MJE/HsW8lE/uguqp0hgg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "39c111d2-ac24-4053-916a-43538d0c1d8b",
+                            SecurityStamp = "fba1f94b-a986-40dd-8ef7-1272cb1b0854",
                             TwoFactorEnabled = false,
                             UserName = "employee@localhost.com"
                         },
@@ -494,7 +546,7 @@ namespace TaskPlayon.Infrastructure.Migrations
                         {
                             Id = 3L,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "fe3187d2-14d0-4e7a-9a7b-ff33ec9441bb",
+                            ConcurrencyStamp = "c0f00869-41a1-4cbd-a470-22c3ed0edb9d",
                             CreatedBy = 0L,
                             CreatedDate = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Email = "trainer@localhost.com",
@@ -502,9 +554,9 @@ namespace TaskPlayon.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "TRAINER@LOCALHOST.COM",
                             NormalizedUserName = "TRAINER@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEHmqorbB/wLA43a7t8/hGbnX4DSWOMyAbtZ5YRTfVmU4QOd+XkmxbCeFlYHm9RDRyQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEK1yfNN9f75PSuLIQRULCXq8f+yOBOySO/QXmh/xAd41iwZEPL8+M+9k490fVplrmA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "17b7680b-db3c-4bd0-bd31-20613ecf47ab",
+                            SecurityStamp = "06210fe9-c083-496e-8104-cb5536eeed2a",
                             TwoFactorEnabled = false,
                             UserName = "trainer@localhost.com"
                         },
@@ -512,7 +564,7 @@ namespace TaskPlayon.Infrastructure.Migrations
                         {
                             Id = 4L,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0ea08b25-2c08-4f1c-8bf6-39a356b0b1f7",
+                            ConcurrencyStamp = "4c3a4d39-ec0f-422c-bf38-645612f9a380",
                             CreatedBy = 0L,
                             CreatedDate = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Email = "student@localhost.com",
@@ -520,9 +572,9 @@ namespace TaskPlayon.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "STUDENT@LOCALHOST.COM",
                             NormalizedUserName = "STUDENT@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEISydfbI5PeBFEmF3A83NaYSWf5Rmgv8rcoawKchYHkjGweEhQqgrvRM1ebyT3NqYg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEIFK9pxKWQ+xBJb6IZsxT8Nw6p79MNRIdNCPSonTLRp0HyqRgmU5hlsjswhuOIcWOA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "95e93226-764c-4b35-901f-b7d9392c17b0",
+                            SecurityStamp = "6ebf9eb4-dc3d-4ad8-b50d-f4de3904d5e6",
                             TwoFactorEnabled = false,
                             UserName = "student@localhost.com"
                         });

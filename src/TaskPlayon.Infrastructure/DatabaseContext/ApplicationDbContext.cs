@@ -1,14 +1,16 @@
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using System.Reflection;
 using TaskPlayon.Application.Model.BaseEntities;
 using TaskPlayon.Domain.Model.EntityLogs;
 using TaskPlayon.Domain.Model.Identities;
+using TaskPlayon.Infrastructure.EntityConfiguration;
+using TaskPlayon.Infrastructure.EntityConfiguration.DataSeeder;
 using TaskPlayon.Infrastructure.Extensions;
 using TaskPlayon.Infrastructure.Healper.Acls;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
-using Microsoft.Extensions.Logging;
 
 namespace TaskPlayon.Infrastructure.DatabaseContext;
 public class ApplicationDbContext: IdentityDbContext<IdentityModel.User, IdentityModel.Role, long, IdentityModel.UserClaim, IdentityModel.UserRole, IdentityModel.UserLogin, IdentityModel.RoleClaim, IdentityModel.UserToken>
@@ -29,6 +31,8 @@ public class ApplicationDbContext: IdentityDbContext<IdentityModel.User, Identit
         modelBuilder.DecimalConvention();
         modelBuilder.ConfigureDecimalProperties();
         modelBuilder.PluralzseTableNameConventions();
+        //modelBuilder.ApplyConfiguration(new ProductDataSeeder());
+        //modelBuilder.ApplyConfiguration(new CustomerDataSeeder());
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
