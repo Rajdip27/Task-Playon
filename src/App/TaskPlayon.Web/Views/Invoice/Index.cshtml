@@ -1,5 +1,25 @@
 ﻿@model List<TaskPlayon.Application.ViewModel.InvoiceVm>
 
+
+<!-- Loader -->
+<div id="loader" style="
+    display:none;
+    position:fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    background:rgba(255,255,255,0.6);
+    z-index:9999;
+    text-align:center;
+    padding-top:200px;
+">
+    <div class="spinner-border text-primary" style="width:4rem; height:4rem;"></div>
+    <div class="mt-3">Preparing Download...</div>
+</div>
+
+<!-- Hidden iframe for downloads -->
+<iframe id="downloadFrame" style="display:none;"></iframe>
+
+
 <h2>Invoices</h2>
 <table class="table table-bordered">
     <thead>
@@ -22,9 +42,38 @@
                 <td>
                     <a asp-action="Edit" asp-controller="Invoice" asp-route-id="@inv.Id" class="btn btn-sm btn-primary">Edit</a>
                     <a asp-action="Details" asp-controller="Invoice" asp-route-id="@inv.Id" class="btn btn-sm btn-info">View</a>
-                    <a asp-action="invoice-pdf" asp-controller="invoice" asp-route-id="@inv.Id" class="btn btn-sm btn-info">Print</a>
+                    <a href="javascript:void(0)"
+                       class="btn btn-sm btn-success"
+                       onclick="downloadInvoice(@inv.Id)">
+                        Print
+                    </a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+<script>
+        function downloadInvoice(id) {
+        // Show loader
+        $("#loader").show();
+
+        $.ajax({
+            url: "/invoice/get-download-url",
+            type: "GET",
+            data: { id: id },
+            success: function (response) {
+
+                // Hide loader
+                $("#loader").hide();
+
+                // Trigger download using hidden iframe
+                $("#downloadFrame").attr("src", response.url);
+            },
+            error: function () {
+                $("#loader").hide();
+                Swal.fire("Error", "Failed to generate invoice PDF", "error");
+            }
+        });
+    }
+
+</script>

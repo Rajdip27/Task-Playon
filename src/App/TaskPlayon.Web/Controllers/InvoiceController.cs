@@ -107,6 +107,14 @@ public class InvoiceController(IProductRepository productRepo,IInvoiceRepository
         return File(pdf, "application/pdf", "invoice.pdf");
     }
 
+    // New AJAX endpoint - returns download URL
+    [HttpGet("/invoice/get-download-url")]
+    public IActionResult GetDownloadUrl(long id)
+    {
+        string url = Url.Action("Invoice", "Invoice", new { id }, Request.Scheme);
+        return Json(new { url });
+    }
+
 
 }
 
