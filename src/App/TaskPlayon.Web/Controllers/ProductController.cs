@@ -29,7 +29,7 @@ public class ProductController(
             var pagination = await _productRepository.GetAllAsync();
             #if DEBUG
             _logger.LogInfo($"GetProducts took {stopwatch.ElapsedMilliseconds}ms");
-           #endif
+            #endif
             _logger.LogInfo($"Fetched {pagination.Count()} products");
 
             return View(pagination);
