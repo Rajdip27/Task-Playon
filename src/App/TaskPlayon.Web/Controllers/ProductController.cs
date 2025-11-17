@@ -17,7 +17,7 @@ public class ProductController(
     private readonly IAppLogger<ProductController> _logger = logger;
 
     [HttpGet("/product")]
-    public async Task<IActionResult> Index(string? search, int page = 1, int pageSize = 10)
+    public async Task<IActionResult> Index()
     {
         try
         {
@@ -25,7 +25,7 @@ public class ProductController(
             _logger.LogInfo("Start Watch");
             var stopwatch = Stopwatch.StartNew();
             #endif
-            _logger.LogInfo($"Fetching products. Search={search}, Page={page}, PageSize={pageSize}");
+            _logger.LogInfo($"Fetching products.");
             var pagination = await _productRepository.GetAllAsync();
             #if DEBUG
             _logger.LogInfo($"GetProducts took {stopwatch.ElapsedMilliseconds}ms");
