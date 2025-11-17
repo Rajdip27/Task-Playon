@@ -1,0 +1,132 @@
+﻿@using TaskPlayon.Application.ViewModel
+@model InvoiceCreateVm
+
+@{
+    var products = ViewBag.Products as List<TaskPlayon.Application.ViewModel.ProductVm>;
+}
+
+<h2 class="mb-4">Create Invoice</h2>
+
+<form method="post">
+    <!-- CUSTOMER INFO -->
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-primary text-white">Customer Info</div>
+        <div class="card-body">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label">Name</label>
+                    <input class="form-control" asp-for="CustomerName" />
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Email</label>
+                    <input class="form-control" asp-for="CustomerEmail" />
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Phone</label>
+                    <input class="form-control" asp-for="CustomerPhone" />
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Address</label>
+                    <input class="form-control" asp-for="CustomerAddress" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- INVOICE ITEMS -->
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-secondary text-white d-flex justify-content-between align-items-center">
+            <span>Invoice Items</span>
+            <button type="button" class="btn btn-light btn-sm" id="addRowBtn">Add Item</button>
+        </div>
+        <div class="card-body p-0">
+            <table class="table table-striped mb-0" id="itemsTable">
+                <thead class="table-light">
+                    <tr>
+                        <th>Product</th>
+                        <th width="100">Qty</th>
+                        <th width="120">Unit Price</th>
+                        <th width="120">Total</th>
+                        <th width="50">X</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div class="card-footer text-end">
+            <h5>Total: <span id="grandTotal">0.00</span></h5>
+        </div>
+    </div>
+
+    <div class="text-end">
+        <button type="submit" class="btn btn-success btn-lg">Save Invoice</button>
+    </div>
+</form>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        let index = 0;
+
+        // ADD ROW
+        $("#addRowBtn").click(function () {
+            let row = `
+            <tr>
+                <td>
+                    <select name="Items[${index}].ProductId" class="form-select product-dd">
+                        <option value="">Select</option>
+                        @foreach (var p in products)
+                        {
+                                <option value="@p.Id" data-price="@p.Price">@p.Name</option>
+                        }
+                    </select>
+                </td>
+                <td>
+                    <input type="number" class="form-control qty" name="Items[${index}].Quantity" value="1" min="1"/>
+                </td>
+                <td>
+                    <input type="number" class="form-control price" name="Items[${index}].UnitPrice" value="0" readonly />
+                </td>
+                <td>
+                    <span class="lineTotal">0.00</span>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-danger btn-sm removeBtn">X</button>
+                </td>
+            </tr>`;
+            $("#itemsTable tbody").append(row);
+            index++;
+        });
+
+        // REMOVE ROW
+        $(document).on("click", ".removeBtn", function () {
+            $(this).closest("tr").remove();
+            updateTotals();
+        });
+
+        // PRODUCT CHANGE
+        $(document).on("change", ".product-dd", function () {
+            let price = $("option:selected", this).data("price") || 0;
+            $(this).closest("tr").find(".price").val(price);
+            updateTotals();
+        });
+
+        // QUANTITY CHANGE
+        $(document).on("input", ".qty", function () {
+            updateTotals();
+        });
+
+        // CALCULATE TOTALS
+        function updateTotals() {
+            let total = 0;
+            $("#itemsTable tbody tr").each(function () {
+                let qty = parseFloat($(this).find(".qty").val()) || 0;
+                let price = parseFloat($(this).find(".price").val()) || 0;
+                let line = qty * price;
+                $(this).find(".lineTotal").text(line.toFixed(2));
+                total += line;
+            });
+            $("#grandTotal").text(total.toFixed(2));
+        }
+    </script>
+}

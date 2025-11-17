@@ -3,6 +3,7 @@
 <h2>Create Product</h2>
 
 <form asp-action="create-or-edit" asp-controller="product" method="post">
+    <input type="hidden" asp-for="Id" />
     <div class="form-group mb-3">
         <label asp-for="Name"></label>
         <input asp-for="Name" class="form-control" />
