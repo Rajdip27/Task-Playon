@@ -1,4 +1,5 @@
-﻿using TaskPlayon.Core.Model;
+﻿using System.ComponentModel.DataAnnotations;
+using TaskPlayon.Core.Model;
 
 namespace TaskPlayon.Application.ViewModel;
 
@@ -6,9 +7,19 @@ public class InvoiceCreateVm
 {
     public long Id { get; set; } // Add this for Edit
     // Customer info
+    [Required(ErrorMessage = "Customer Name is required")]
+    [StringLength(100, ErrorMessage = "Name cannot exceed 100 characters")]
     public string CustomerName { get; set; } = string.Empty;
+    [Required(ErrorMessage = "Email is required")]
+    [EmailAddress(ErrorMessage = "Invalid email address")]
+    [StringLength(100, ErrorMessage = "Email cannot exceed 100 characters")]
     public string CustomerEmail { get; set; } = string.Empty;
+    [Required(ErrorMessage = "Phone is required")]
+    [Phone(ErrorMessage = "Invalid phone number")]
+    [StringLength(20, ErrorMessage = "Phone cannot exceed 20 characters")]
     public string CustomerPhone { get; set; } = string.Empty;
+    [Required(ErrorMessage = "Address is required")]
+    [StringLength(200, ErrorMessage = "Address cannot exceed 200 characters")]
     public string CustomerAddress { get; set; } = string.Empty;
 
     // Invoice info

@@ -2,12 +2,13 @@
 @model InvoiceCreateVm
 
 @{
-    ViewData["Title"] = (Model.TotalAmount > 0 ? "Edit Invoice" : "Create Invoice");
+    ViewData["Title"] = (Model.Id > 0 ? "Edit Invoice" : "Create Invoice");
     var products = ViewBag.Products as List<TaskPlayon.Application.ViewModel.ProductVm>;
 }
 
 <h2 class="mb-4">@ViewData["Title"]</h2>
-<form method="post" asp-action="@(Model.TotalAmount > 0 ? "Edit" : "Create")" asp-route-id="@Model.Id">
+
+<form method="post" asp-action="@(Model.Id > 0 ? "Edit" : "Create")" asp-route-id="@Model.Id">
     <!-- Customer Info -->
     <div class="card mb-4 shadow-sm">
         <div class="card-header bg-primary text-white">Customer Info</div>
@@ -15,19 +16,23 @@
             <div class="row g-3">
                 <div class="col-md-6">
                     <label class="form-label">Name</label>
-                    <input asp-for="CustomerName" class="form-control"/>
+                    <input asp-for="CustomerName" class="form-control" />
+                    <span asp-validation-for="CustomerName" class="text-danger"></span>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Email</label>
-                    <input asp-for="CustomerEmail" class="form-control"/>
+                    <input asp-for="CustomerEmail" class="form-control" />
+                    <span asp-validation-for="CustomerEmail" class="text-danger"></span>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Phone</label>
-                    <input asp-for="CustomerPhone" class="form-control"/>
+                    <input asp-for="CustomerPhone" class="form-control" />
+                    <span asp-validation-for="CustomerPhone" class="text-danger"></span>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Address</label>
-                    <input asp-for="CustomerAddress" class="form-control"/>
+                    <input asp-for="CustomerAddress" class="form-control" />
+                    <span asp-validation-for="CustomerAddress" class="text-danger"></span>
                 </div>
             </div>
         </div>
@@ -51,7 +56,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @for(int i=0; i<Model.Items.Count; i++)
+                    @for (int i = 0; i < Model.Items.Count; i++)
                     {
                         <tr>
                             <td>
@@ -64,12 +69,14 @@
                                         </option>
                                     }
                                 </select>
+                                <span class="text-danger" data-valmsg-for="Items[@i].ProductId" data-valmsg-replace="true"></span>
                             </td>
                             <td>
-                                <input type="number" class="form-control qty" name="Items[@i].Quantity" value="@Model.Items[i].Quantity" min="1"/>
+                                <input type="number" class="form-control qty" name="Items[@i].Quantity" value="@Model.Items[i].Quantity" min="1" />
+                                <span class="text-danger" data-valmsg-for="Items[@i].Quantity" data-valmsg-replace="true"></span>
                             </td>
                             <td>
-                                <input type="number" class="form-control price" name="Items[@i].UnitPrice" value="@Model.Items[i].UnitPrice" readonly/>
+                                <input type="number" class="form-control price" name="Items[@i].UnitPrice" value="@Model.Items[i].UnitPrice" readonly />
                             </td>
                             <td>
                                 <span class="lineTotal">@(@Model.Items[i].Quantity * Model.Items[i].UnitPrice)</span>
@@ -88,67 +95,75 @@
     </div>
 
     <div class="text-end mb-4">
-        <button type="submit" class="btn btn-success btn-lg">Save Invoice</button>
+        <button type="submit" class="btn btn-success btn-lg mb-5">Save Invoice</button>
     </div>
 
-    <input type="hidden" asp-for="TotalAmount" id="TotalAmount"/>
+    <input type="hidden" asp-for="TotalAmount" id="TotalAmount" />
 </form>
 
 @section Scripts {
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-let index = @Model.Items.Count;
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.6/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/4.0.0/jquery.validate.unobtrusive.min.js"></script>
 
-// Add new row
-$("#addRowBtn").click(function(){
-    let row = `<tr>
-        <td>
-            <select name="Items[${index}].ProductId" class="form-select product-dd">
-                <option value="">Select</option>
-                @foreach(var p in products)
-                { <option value="@p.Id" data-price="@p.Price">@p.Name</option> }
-            </select>
-        </td>
-        <td><input type="number" class="form-control qty" name="Items[${index}].Quantity" value="1" min="1"/></td>
-        <td><input type="number" class="form-control price" name="Items[${index}].UnitPrice" value="0" readonly/></td>
-        <td><span class="lineTotal">0.00</span></td>
-        <td><button type="button" class="btn btn-danger btn-sm removeBtn">X</button></td>
-    </tr>`;
-    $("#itemsTable tbody").append(row);
-    index++;
-});
+    <script>
+        let index = @Model.Items.Count;
 
-// Remove row
-$(document).on("click",".removeBtn",function(){
-    $(this).closest("tr").remove();
-    updateTotals();
-});
+        // Add new row
+        $("#addRowBtn").click(function(){
+            let row = `<tr>
+                <td>
+                    <select name="Items[${index}].ProductId" class="form-select product-dd">
+                        <option value="">Select</option>
+                        @foreach (var p in products)
+                        {
+                            <option value="@p.Id" data-price="@p.Price">@p.Name</option>
+                        }
+                    </select>
+                    <span class="text-danger" data-valmsg-for="Items[${index}].ProductId" data-valmsg-replace="true"></span>
+                </td>
+                <td><input type="number" class="form-control qty" name="Items[${index}].Quantity" value="1" min="1"/>
+                    <span class="text-danger" data-valmsg-for="Items[${index}].Quantity" data-valmsg-replace="true"></span>
+                </td>
+                <td><input type="number" class="form-control price" name="Items[${index}].UnitPrice" value="0" readonly/></td>
+                <td><span class="lineTotal">0.00</span></td>
+                <td><button type="button" class="btn btn-danger btn-sm removeBtn">X</button></td>
+            </tr>`;
+            $("#itemsTable tbody").append(row);
+            index++;
+        });
 
-// Product change
-$(document).on("change",".product-dd",function(){
-    let price = $("option:selected", this).data("price") || 0;
-    $(this).closest("tr").find(".price").val(price);
-    updateTotals();
-});
+        // Remove row
+        $(document).on("click",".removeBtn",function(){
+            $(this).closest("tr").remove();
+            updateTotals();
+        });
 
-// Quantity change
-$(document).on("input",".qty",function(){ updateTotals(); });
+        // Product change
+        $(document).on("change",".product-dd",function(){
+            let price = $("option:selected", this).data("price") || 0;
+            $(this).closest("tr").find(".price").val(price);
+            updateTotals();
+        });
 
-// Calculate totals
-function updateTotals(){
-    let total=0;
-    $("#itemsTable tbody tr").each(function(){
-        let qty=parseFloat($(this).find(".qty").val())||0;
-        let price=parseFloat($(this).find(".price").val())||0;
-        let line = qty*price;
-        $(this).find(".lineTotal").text(line.toFixed(2));
-        total += line;
-    });
-    $("#grandTotal").text(total.toFixed(2));
-    $("#TotalAmount").val(total.toFixed(2));
-}
+        // Quantity change
+        $(document).on("input",".qty",function(){ updateTotals(); });
 
-// Initialize totals on page load
-$(document).ready(function(){ updateTotals(); });
-</script>
+        // Calculate totals
+        function updateTotals(){
+            let total=0;
+            $("#itemsTable tbody tr").each(function(){
+                let qty=parseFloat($(this).find(".qty").val())||0;
+                let price=parseFloat($(this).find(".price").val())||0;
+                let line = qty*price;
+                $(this).find(".lineTotal").text(line.toFixed(2));
+                total += line;
+            });
+            $("#grandTotal").text(total.toFixed(2));
+            $("#TotalAmount").val(total.toFixed(2));
+        }
+
+        // Initialize totals on page load
+        $(document).ready(function(){ updateTotals(); });
+    </script>
 }
