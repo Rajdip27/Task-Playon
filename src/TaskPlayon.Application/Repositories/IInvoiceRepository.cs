@@ -9,7 +9,7 @@ namespace TaskPlayon.Application.Repositories
     {
         Task<bool> CreateInvoiceWithCustomerAsync(InvoiceCreateVm vm);
         Task<List<InvoiceVm>> GetAllInvoicesAsync();
-        Task<InvoiceVm?> GetInvoiceByIdAsync(long id);
+        Task<InvoiceCreateVm?> GetInvoiceByIdAsync(long id);
         Task<bool> UpdateInvoiceAsync(long invoiceId, InvoiceCreateVm vm);
     }
 
@@ -94,31 +94,30 @@ namespace TaskPlayon.Application.Repositories
                 .ToListAsync();
         }
 
-        public async Task<InvoiceVm?> GetInvoiceByIdAsync(long id)
+        public async Task<InvoiceCreateVm?> GetInvoiceByIdAsync(long id)
         {
             return await _context.Set<Invoice>()
-                .Include(i => i.Customer)
-                .Include(i => i.InvoiceItem)
-                    .ThenInclude(ii => ii.Product)
-                .Where(i => i.Id == id)
-                .Select(i => new InvoiceVm
-                {
-                    Id = i.Id,
-                    CustomerName = i.Customer.Name,
-                    CustomerPhone = i.Customer.Phone,
-                    CustomerEmail = i.Customer.Email,
-                    CustomerAddress = i.Customer.Address,
-                    Date = i.Date,
-                    Total = i.Total,
-                    Items = i.InvoiceItem.Select(ii => new InvoiceItemVmDisplay
-                    {
-                        ProductName = ii.Product.Name,
-                        ProductId = ii.Product.Id,
-                        Quantity = ii.Quantity,
-                        UnitPrice = ii.UnitPrice
-                    }).ToList()
-                })
-                .FirstOrDefaultAsync();
+        .Include(i => i.Customer)
+        .Include(i => i.InvoiceItem)
+            .ThenInclude(ii => ii.Product)
+        .Where(i => i.Id == id)
+        .Select(i => new InvoiceCreateVm
+        {
+            Id = i.Id,
+            CustomerName = i.Customer.Name,
+            CustomerPhone = i.Customer.Phone,
+            CustomerEmail = i.Customer.Email,
+            CustomerAddress = i.Customer.Address,
+            Date = i.Date,
+            TotalAmount = i.Total,
+            Items = i.InvoiceItem.Select(ii => new InvoiceItemVm
+            {
+                ProductId = ii.ProductId,
+                Quantity = ii.Quantity,
+                UnitPrice = ii.UnitPrice
+            }).ToList()
+        })
+        .FirstOrDefaultAsync();
         }
 
         public async Task<bool> UpdateInvoiceAsync(long invoiceId, InvoiceCreateVm vm)

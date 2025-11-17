@@ -68,31 +68,13 @@ public class InvoiceController(IProductRepository productRepo,IInvoiceRepository
     [HttpGet("/invoice/edit/{id}")]
     public async Task<IActionResult> Edit(long id)
     {
-        var invoice = await invoiceRepository.GetInvoiceByIdAsync(id); // returns InvoiceCreateVm
+        var vm = await invoiceRepository.GetInvoiceByIdAsync(id);
 
-        if (invoice == null) return NotFound();
-
-        // Map InvoiceDetailsVm to InvoiceCreateVm if needed
-        var vm = new InvoiceCreateVm
-        {
-            CustomerName = invoice.CustomerName,
-            CustomerEmail = invoice.CustomerEmail,
-            CustomerPhone = invoice.CustomerPhone,
-            CustomerAddress = invoice.CustomerAddress,
-            Id = invoice.Id,
-            Date = invoice.Date,
-            TotalAmount = invoice.Total,
-            Items = invoice.Items.Select(i => new InvoiceItemVm
-            {
-                ProductId = i.ProductId,
-                Quantity = i.Quantity,
-                UnitPrice = i.UnitPrice
-            }).ToList()
-        };
+        if (vm == null) return NotFound();
 
         ViewBag.Products = await productRepo.GetAllAsync();
 
-        return View("Create", vm); // reuse the Create.cshtml view
+        return View("Create", vm); // reuse Create.cshtml
     }
 
     [HttpPost("/invoice/edit/{id}")]
